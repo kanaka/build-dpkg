@@ -18,3 +18,7 @@ dpkg-buildpackage $@
 #echo ::set-output name=filename-dbgsym::$dbgsym
 ## Move the built package into the Docker mounted workspace
 #mv $filename $dbgsym workspace/
+
+## Move the built artifacts into the Docker mounted workspace
+cd ..
+mv adaptit_* adaptit-* workspace/
