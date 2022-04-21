@@ -20,5 +20,6 @@ dpkg-buildpackage $@
 #mv $filename $dbgsym workspace/
 
 ## Move the built artifacts into the Docker mounted workspace
-cd ..
-mv adaptit_* adaptit-* workspace/
+ls -l ../
+mkdir -p artifacts
+mv ../*.deb ../*.changes ../*.dsc ../*.tar.gz ./artifacts
