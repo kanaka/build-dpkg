@@ -1,9 +1,16 @@
 name: 'Build Ubuntu package: Focal (21.04)'
 description: 'Build an deb package for Ubuntu Focal (21.04)'
 
+inputs:
+  LOCAL:
+    description: "Append +LOCAL to package revision"
+    required: false
+
 runs:
   using: docker
   image: Dockerfile
+  env:
+    LOCAL: ${{ inputs.LOCAL }}
 
 branding:
   icon: package
