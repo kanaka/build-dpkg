@@ -2,7 +2,7 @@
 
 This is a [GitHub Action](https://github.com/features/actions) that will
 build a [Debian package](https://en.wikipedia.org/wiki/Deb_%28file_format%29)
-(`.deb` file) using the latest version of [Debian Buster](https://www.debian.org/releases/buster/).
+(`.deb` file) for Ubuntu Focal (21.04).
 
 ## Usage
 
@@ -18,15 +18,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: singingwolfboy/build-dpkg-buster@v1
+      - uses: kanaka/build-dpkg-focal@v1
         id: build
         with:
           args: --unsigned-source --unsigned-changes
 
-      - uses: actions/upload-artifact@v1
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: ${{ steps.build.outputs.filename }}
-          path: ${{ steps.build.outputs.filename }}
+          files: |
+            mypkg_*
+            mypkg-*
+
 ```
 
 This Action wraps the [`dpkg-buildpackage`](https://manpages.debian.org/buster/dpkg-dev/dpkg-buildpackage.1.en.html)
@@ -48,40 +51,3 @@ This Action does the following things inside a Docker container:
    so that other GitHub Actions steps can easily reference
    the resulting files.
 
-## Related
-
-If you need to build Debian packages on a different release, check out the following:
-
-- [singingwolfboy/build-dpkg-stretch](https://github.com/singingwolfboy/build-dpkg-stretch)
-
-If you want to upload the package to [Amazon S3](https://aws.amazon.com/s3/)
-instead of using
-[`actions/upload-artifact`](https://github.com/actions/upload-artifact),
-you may want to use
-[the official Docker image for the AWS CLI](https://hub.docker.com/r/amazon/aws-cli),
-like this:
-
-```yaml
-jobs:
-  build-deb:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: singingwolfboy/build-dpkg-buster@v1
-        id: build
-        with:
-          args: --unsigned-source --unsigned-changes
-
-      - uses: docker://amazon/aws-cli:latest
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        with:
-          args: >-
-            s3
-            cp
-            ${{ steps.build.outputs.filename }}
-            s3://my-bucket-name/${{ steps.build.outputs.filename }}
-            --content-type "application/vnd.debian.binary-package"
-```
