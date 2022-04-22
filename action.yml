@@ -1,5 +1,5 @@
-name: 'Build Ubuntu package: Focal (21.04)'
-description: 'Build an deb package for Ubuntu Focal (21.04)'
+name: 'Build a deb package'
+description: 'Build a deb (Ubuntu, Debian) package'
 
 inputs:
   LOCAL:

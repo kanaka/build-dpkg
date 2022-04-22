@@ -1,8 +1,12 @@
-# Build Debian Package: Buster
+# Github Action to Build a deb (Debian, Ubuntu) Package
 
 This is a [GitHub Action](https://github.com/features/actions) that will
 build a [Debian package](https://en.wikipedia.org/wiki/Deb_%28file_format%29)
-(`.deb` file) for Ubuntu Focal (21.04).
+(`.deb` file) for Debian or Ubuntu.
+
+The Debian or Ubuntu distribution is specified using the action
+tag/version. For example, `focal-v1` will be a package for Ubuntu
+Focal (21.04).
 
 ## Usage
 
@@ -18,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: kanaka/build-dpkg-focal@v1
+      - uses: kanaka/build-dpkg@focal-v1
         id: build
         with:
           args: --unsigned-source --unsigned-changes
