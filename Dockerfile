@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:bionic
 
 # Installs the `dpkg-buildpackage` command
 RUN apt-get -y update && \
