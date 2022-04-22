@@ -1,12 +1,13 @@
-# Github Action to Build a deb (Debian, Ubuntu) Package
+# Github Action to Build a Deb Package
 
 This is a [GitHub Action](https://github.com/features/actions) that will
 build a [Debian package](https://en.wikipedia.org/wiki/Deb_%28file_format%29)
 (`.deb` file) for Debian or Ubuntu.
 
 The Debian or Ubuntu distribution is specified using the action
-tag/version. For example, `focal-v1` will be a package for Ubuntu
-Focal (21.04).
+tag/version. For example, `focal-v1` and `bionic-v` will build
+a package for Ubuntu Focal (21.04) and Ubuntu Bionic (18.04)
+respectively.
 
 ## Usage
 
@@ -48,10 +49,7 @@ This Action does the following things inside a Docker container:
 2. Call [`dpkg-buildpackage`](https://manpages.debian.org/buster/dpkg-dev/dpkg-buildpackage.1.en.html)
    with whatever arguments are passed to the
    [`args` input](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswithargs) in the step definition.
-3. Move the resulting `*.deb` files into the top level of your repository,
-   so that other GitHub Actions steps can process them futher.
-4. Set the `filename` and `filename-dbgsym`
-   [outputs](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjobs_idoutputs),
-   so that other GitHub Actions steps can easily reference
-   the resulting files.
+3. Move the resulting `*.deb` files into the `artifacts/` directory in
+   your repository, so that other GitHub Actions steps can process
+   them futher.
 

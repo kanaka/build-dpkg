@@ -17,15 +17,6 @@ fi
 # Build the package
 dpkg-buildpackage $@
 
-## Output the filenames
-#cd ..
-#filename=`ls *.deb | grep -v -- -dbgsym`
-#dbgsym=`ls *.deb | grep -- -dbgsym`
-#echo ::set-output name=filename::$filename
-#echo ::set-output name=filename-dbgsym::$dbgsym
-## Move the built package into the Docker mounted workspace
-#mv $filename $dbgsym workspace/
-
 ## Move the built artifacts into the Docker mounted workspace
 ls -l ../
 mkdir -p artifacts
