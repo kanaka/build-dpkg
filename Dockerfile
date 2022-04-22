@@ -1,4 +1,5 @@
-FROM ubuntu:focal
+ARG DISTRO
+FROM ${DISTRO}
 
 # Installs the `dpkg-buildpackage` command
 RUN apt-get -y update && \
